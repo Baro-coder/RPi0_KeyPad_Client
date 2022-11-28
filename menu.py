@@ -203,7 +203,7 @@ class Menu:
                 output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_header())
                     
             else:
-                self.client.send(row=1, text='LOADING DATA...'.center(24))
+                self.client.send(row=1, text='LOADING DATA...')
                 sleep(1)
                 
                 self.child_Thread = thr.Thread(target=self._thread_task, args=(5, ), daemon=True)
