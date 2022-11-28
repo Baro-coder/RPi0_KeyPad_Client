@@ -119,46 +119,44 @@ class Menu:
     def update_output(self):
         if self.section == MenuSections.CLOCK:
             if self.in_sections:
-                output = (Menu.HEADER, f'{self.section_id + 1}: {clock.SectionManager.HEADER}')
+                output = (f'-- {Menu.HEADER} --', f'{self.section_id + 1}: {clock.SectionManager.HEADER}')
                 
             elif self.in_options:
-                output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_header())
+                output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_header())
                     
             else:
-                output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_output())
+                output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_output())
                 
         if self.section == MenuSections.NET:
             if self.in_sections:
-                output = (Menu.HEADER, f'{self.section_id + 1}: {net.SectionManager.HEADER}')
+                output = (f'-- {Menu.HEADER} --', f'{self.section_id + 1}: {net.SectionManager.HEADER}')
                 
             elif self.in_options:
-                output = (net.SectionManager.HEADER, net.SectionManager.get_option_header())
+                output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_header())
                 
             else:
-                output = (net.SectionManager.HEADER, net.SectionManager.get_option_output())
+                output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_output())
             
         if self.section == MenuSections.COLLEGE_PLAN:
             if self.in_sections:
-                output = (Menu.HEADER, f'{self.section_id + 1}: {plan.SectionManager.HEADER}')
+                output = (f'-- {Menu.HEADER} --', f'{self.section_id + 1}: {plan.SectionManager.HEADER}')
                 
             elif self.in_options:
-                output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_header())
+                output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_header())
                     
             else:
-                output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_output())
+                output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_output())
             
         if self.section == MenuSections.CRYPTO:
             if self.in_sections:
-                output = (Menu.HEADER, f'{self.section_id + 1}: {crypto.SectionManager.HEADER}')
+                output = (f'-- {Menu.HEADER} --', f'{self.section_id + 1}: {crypto.SectionManager.HEADER}')
                 
             elif self.in_options:
-                output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_header())
+                output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_header())
                     
             else:
-                output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_output())
+                output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_output())
         
-        
-        output[0] = f'-- {output[0]} --'.center(24)
         
         print('OUTPUT:')
         print('\t' + 26 * '-')
