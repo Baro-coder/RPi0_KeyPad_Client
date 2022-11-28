@@ -41,7 +41,7 @@ def get_BTC_price():
     price = float(price)
     price = round(price, 2)
     
-    out = f'BTC:{(19 - (len(price) + len(CURRENCY))) * " "}{price} {CURRENCY}'
+    out = f'BTC:{(19 - (len(str(price)) + len(CURRENCY))) * " "}{price} {CURRENCY}'
     
     return out
 
@@ -65,6 +65,6 @@ def get_ETH_price():
     price = float(price)
     price = round(price, 2)
     
-    out = f'ETH:{(19 - (len(price) + len(CURRENCY))) * " "}{price} {CURRENCY}'
+    out = f'ETH:{(19 - (len(str(price)) + len(CURRENCY))) * " "}{price} {CURRENCY}'
     
     return out
