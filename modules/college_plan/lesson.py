@@ -21,4 +21,4 @@ class Lesson:
         self.info = info
 
     def __str__(self) -> str:
-        return f'Blok {self.block_id} : {self.subject} ({self.type.value}) {self.place}'
+        return f'[{self.block_id}]: {self.subject} ({self.type.value}) {self.place}'

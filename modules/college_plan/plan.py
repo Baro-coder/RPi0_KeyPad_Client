@@ -49,7 +49,7 @@ class SectionManager:
         out1 = f'{SectionManager.HEADER}:{(23 - (len(SectionManager.HEADER) + len(date))) * " "}{date}'
         
         if plan is None:
-            out2 = 'WOLNE'.center(24)
+            out2 = '* FREE DAY *'.center(24)
         else:
             out2 = str(plan.lessons[SectionManager.block_id])
         
