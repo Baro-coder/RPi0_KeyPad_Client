@@ -9,7 +9,7 @@ class NetOption(Enum):
 
 
 class SectionManager:
-    HEADER = '-- NET --'
+    HEADER = 'NET'
     option_id = 0
     
     @staticmethod
@@ -27,7 +27,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{NetOption(SectionManager.option_id).value}:  {NetOption(SectionManager.option_id).name}'
+        return f'{NetOption(SectionManager.option_id).value + 1}:  {NetOption(SectionManager.option_id).name}'
     
     
     @staticmethod

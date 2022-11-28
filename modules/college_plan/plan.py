@@ -11,7 +11,7 @@ class PlanOptions(Enum):
 
 
 class SectionManager:
-    HEADER = '-- COLLEGE PLAN --'
+    HEADER = 'COLLEGE PLAN'
     option_id = 0
     
     @staticmethod
@@ -29,7 +29,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{PlanOptions(SectionManager.option_id).value}:  {PlanOptions(SectionManager.option_id).name}'
+        return f'{PlanOptions(SectionManager.option_id).value + 1}:  {PlanOptions(SectionManager.option_id).name}'
     
     
     @staticmethod

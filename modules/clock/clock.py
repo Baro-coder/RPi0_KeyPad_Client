@@ -10,7 +10,7 @@ class ClockOption(Enum):
 
 
 class SectionManager:
-    HEADER = '-- CLOCK --'
+    HEADER = 'CLOCK'
     option_id = 0
     
     @staticmethod
@@ -28,7 +28,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{ClockOption(SectionManager.option_id).value}:  {ClockOption(SectionManager.option_id).name}'
+        return f'{ClockOption(SectionManager.option_id).value + 1}:  {ClockOption(SectionManager.option_id).name}'
     
     @staticmethod
     def get_option_output():

@@ -18,7 +18,7 @@ class MenuSections(Enum):
     CRYPTO = 3
 
 class Menu:
-    HEADER = '-- MENU --'
+    HEADER = 'MENU'
     
     
     def __init__(self, tcp_client : TCP_Client) -> None:
@@ -119,7 +119,7 @@ class Menu:
     def update_output(self):
         if self.section == MenuSections.CLOCK:
             if self.in_sections:
-                output = (Menu.HEADER, clock.SectionManager.HEADER)
+                output = (Menu.HEADER, f'{self.section_id + 1}: {clock.SectionManager.HEADER}')
                 
             elif self.in_options:
                 output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_header())
@@ -129,7 +129,7 @@ class Menu:
                 
         if self.section == MenuSections.NET:
             if self.in_sections:
-                output = (Menu.HEADER, net.SectionManager.HEADER)
+                output = (Menu.HEADER, f'{self.section_id + 1}: {net.SectionManager.HEADER}')
                 
             elif self.in_options:
                 output = (net.SectionManager.HEADER, net.SectionManager.get_option_header())
@@ -139,7 +139,7 @@ class Menu:
             
         if self.section == MenuSections.COLLEGE_PLAN:
             if self.in_sections:
-                output = (Menu.HEADER, plan.SectionManager.HEADER)
+                output = (Menu.HEADER, f'{self.section_id + 1}: {plan.SectionManager.HEADER}')
                 
             elif self.in_options:
                 output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_header())
@@ -149,19 +149,21 @@ class Menu:
             
         if self.section == MenuSections.CRYPTO:
             if self.in_sections:
-                output = (Menu.HEADER, crypto.SectionManager.HEADER)
+                output = (Menu.HEADER, f'{self.section_id + 1}: {crypto.SectionManager.HEADER}')
                 
             elif self.in_options:
                 output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_header())
                     
             else:
                 output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_output())
-            
+        
+        
+        output[0] = f'-- {output[0]} --'.center(24)
         
         print('OUTPUT:')
         print('\t' + 26 * '-')
-        print(f'\t|{output[0].center(24)}|')
-        print(f'\t|{output[1]}|\n')
+        print(f'\t{output[0].center(24)}')
+        print(f'\t{output[1]}')
         print('\t' + 26 * '-')
         
         self.client.send(row=0, text=output[0].center(24))

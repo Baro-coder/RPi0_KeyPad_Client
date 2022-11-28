@@ -7,7 +7,7 @@ class CryptoOption(Enum):
 
 
 class SectionManager:
-    HEADER = '-- CRYPTO --'
+    HEADER = 'CRYPTO'
     option_id = 0
     
     @staticmethod
@@ -25,7 +25,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{CryptoOption(SectionManager.option_id).value}:  {CryptoOption(SectionManager.option_id).name}'
+        return f'{CryptoOption(SectionManager.option_id).value + 1}:  {CryptoOption(SectionManager.option_id).name}'
     
     
     @staticmethod

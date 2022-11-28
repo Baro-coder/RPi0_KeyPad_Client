@@ -12,7 +12,7 @@ class Request:
         self.text = text
         
     def __str__(self) -> str:
-        return f'ROW={self.row}&TEXT={self.text}{TCP_Client.CLOSE_MSG}'
+        return f'ROW={self.row}&TEXT={self.text}'
 
 
 # -------------------------------------------------------------------------
@@ -39,6 +39,9 @@ class TCP_Client:
             s.connect((self.server_address, self.server_port))
             
             s.sendall(str(request).encode(self.format))
+            resp = s.recv(1024)
+            
+            s.sendall(TCP_Client.CLOSE_MSG.encode(self.format))
             resp = s.recv(1024)
             
         
