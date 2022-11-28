@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -- KeyPad_Client/modules/crypto: crypto.py --
+
 from enum import Enum
 
 
