@@ -47,7 +47,11 @@ class SectionManager:
             date, plan = SectionManager._get_plan_for_next_day()
         
         out1 = f'{SectionManager.HEADER}:{(23 - (len(SectionManager.HEADER) + len(date))) * " "}{date}'
-        out2 = str(plan.lessons[SectionManager.block_id])
+        
+        if plan is None:
+            out2 = 'WOLNE'.center(24)
+        else:
+            out2 = str(plan.lessons[SectionManager.block_id])
         
         output = (out1, out2)
         
