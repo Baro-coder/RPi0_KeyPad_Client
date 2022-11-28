@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -- KeyPad_Client/modules/college_plan: lesson.py --
+
 from enum import Enum
 
 # *** Lesson ***

@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -- KeyPad_Client/modules/college_plan: date.py --
+
 from modules.college_plan.lesson import Lesson, LessonType
 
 # *** Date ***

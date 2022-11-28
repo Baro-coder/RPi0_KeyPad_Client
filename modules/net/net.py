@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -- KeyPad_Client/modules/net: net.py --
+
 from enum import Enum
 import socket
 

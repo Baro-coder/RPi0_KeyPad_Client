@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -- KeyPad_Client/modules/clock: clock.py --
+
 from datetime import date, datetime
 
 from enum import Enum

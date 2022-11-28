@@ -2,7 +2,6 @@
 # -- KeyPad_Client: main.py --
 
 import sys
-import os
 import configparser as cfgp
 
 from tcp_client import TCP_Client
@@ -12,7 +11,6 @@ from buttons_handler import Buttons_Handler
 
 APP_DIR = '/home/pi/.Private/RPi0_KeyPad_Client'
 CONFIG_FILE = f'{APP_DIR}/config.ini'
-PID_FILE = '/var/keypad_client.pid'
 
 
 def config_init():
@@ -53,18 +51,7 @@ def config_init():
         sys.exit(1)
 
 
-def store_pid():
-    pid = os.getpid()
-    with open(PID_FILE, 'w') as f:
-        f.write(str(pid))
-
-
 def main():
-    # -- PID
-    print('Storing the PID... ', end='')
-    store_pid()
-    print('Done.\n')
-    
     # -- Config
     print('Reading config... ', end='')
     config_init()
