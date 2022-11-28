@@ -132,21 +132,22 @@ class Menu:
     def _thread_task(self):
         while True:
             if not self.threaded:
+                print(f'{self.child_Thread.name} : STOP')
                 break
             
             if self.section == MenuSections.CLOCK:
-                output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_output())
+                output = (f'{clock.SectionManager.HEADER}:', clock.SectionManager.get_option_output())
 
             if self.section == MenuSections.NET:
-                output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_output())
+                output = (f'{net.SectionManager.HEADER}:', net.SectionManager.get_option_output())
 
             if self.section == MenuSections.COLLEGE_PLAN:
-                output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_output())
+                output = (f'{plan.SectionManager.HEADER}:', plan.SectionManager.get_option_output())
 
             if self.section == MenuSections.CRYPTO:
-                output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_output())
+                output = (f'{crypto.SectionManager.HEADER}:', crypto.SectionManager.get_option_output())
 
-            self.client.send(row=0, text=output[0].center(24))
+            self.client.send(row=0, text=output[0])
             self.client.send(row=1, text=output[1])
             
             sleep(1)
@@ -163,6 +164,9 @@ class Menu:
             else:
                 self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
                 self.child_Thread.name = f'<ChildThread>CLOCK'
+                
+                print(f'{self.child_Thread.name} : START')
+                
                 self.child_Thread.start()
                 return
                 
@@ -175,7 +179,10 @@ class Menu:
                 
             else:
                 self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
-                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.name = f'<ChildThread>NET'
+                
+                print(f'{self.child_Thread.name} : START')
+                
                 self.child_Thread.start()
                 return
             
@@ -188,7 +195,10 @@ class Menu:
                     
             else:
                 self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
-                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.name = f'<ChildThread>PLAN'
+                
+                print(f'{self.child_Thread.name} : START')
+                
                 self.child_Thread.start()
                 return
             
@@ -201,7 +211,10 @@ class Menu:
                     
             else:
                 self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
-                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.name = f'<ChildThread>CRYPTO'
+                
+                print(f'{self.child_Thread.name} : START')
+                
                 self.child_Thread.start()
                 return
         

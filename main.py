@@ -41,13 +41,14 @@ def config_init():
         PIN_PWMLED = int(config['RPi LED']['pin_pwmled'])
     
     except KeyError as e:
-        print('-- Config Error --')
-        print(e)
+        sys.stderr.write('-- Config Key Error --')
+        sys.stderr.write(str(e))
+        sys.exit(1)
     
     except Exception as e:
-        print('-- Unexpected Error Config --')
-        print(type(e))
-        print(e)
+        sys.stderr.write('-- Unexpected Error Config --')
+        sys.stderr.write(str(type(e)))
+        sys.stderr.write(str(e))
         sys.exit(1)
 
 
@@ -76,12 +77,13 @@ def main():
         btn_handler.run()
         
     except KeyboardInterrupt:
+        btn_handler.led.value = 1
         print('-- Manually Interrupt --')
     
     except Exception as e:
-        print('-- Unexpected Error --')
-        print(type(e))
-        print(e)
+        sys.stderr.write('-- Unexpected Error Client --')
+        sys.stderr.write(str(type(e)))
+        sys.stderr.write(str(e))
         sys.exit(1)
         
 
