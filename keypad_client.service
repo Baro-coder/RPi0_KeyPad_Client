@@ -1,0 +1,16 @@
+[Unit]
+Description=Raspberry Pi KeyPad TCP Client for LCD Display
+After=lcd_socket.service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/bin/bash /home/pi/.Private/keypad_client.sh
+WorkingDirectory=/home/pi/.Private
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=1
+User=pi
+
+[Install]
+WantedBy=multi-user.target
