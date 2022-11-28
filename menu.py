@@ -28,9 +28,9 @@ class Menu:
         
     def next(self):
         if self.in_sections:
-            self.section_id += 1
-            if self.section_id == 4:
-                self.section_id = 0
+            self.section += 1
+            if self.section == 4:
+                self.section = 0
             
         else:
             if self.section == MenuSections.CLOCK:
@@ -50,9 +50,9 @@ class Menu:
             
     def prev(self):
         if self.in_sections:
-            self.section_id -= 1
-            if self.section_id == -1:
-                self.section_id = 3
+            self.section -= 1
+            if self.section == -1:
+                self.section = 3
         
         else:
             if self.section == MenuSections.CLOCK:
