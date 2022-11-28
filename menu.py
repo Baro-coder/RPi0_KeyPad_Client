@@ -129,7 +129,7 @@ class Menu:
         self.update_output()
     
     
-    def _thread_task(self):
+    def _thread_task(self, interval : int):
         while True:
             if not self.threaded:
                 print(f'{self.child_Thread.name} : STOP')
@@ -147,7 +147,7 @@ class Menu:
             self.client.send(row=0, text=output[0])
             self.client.send(row=1, text=output[1])
             
-            sleep(1)
+            sleep(interval)
     
     
     def update_output(self):
@@ -159,7 +159,7 @@ class Menu:
                 output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_header())
                     
             else:
-                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(1, ), daemon=True)
                 self.child_Thread.name = f'<ChildThread>CLOCK'
                 
                 print(f'{self.child_Thread.name} : START')
@@ -175,7 +175,7 @@ class Menu:
                 output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_header())
                 
             else:
-                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(1, ), daemon=True)
                 self.child_Thread.name = f'<ChildThread>NET'
                 
                 print(f'{self.child_Thread.name} : START')
@@ -201,7 +201,7 @@ class Menu:
                 output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_header())
                     
             else:
-                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(10, ), daemon=True)
                 self.child_Thread.name = f'<ChildThread>CRYPTO'
                 
                 print(f'{self.child_Thread.name} : START')

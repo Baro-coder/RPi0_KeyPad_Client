@@ -3,6 +3,7 @@
 
 from enum import Enum
 
+import modules.crypto.pricer as prc
 
 class CryptoOption(Enum):
     BITCOIN = 0
@@ -38,15 +39,18 @@ class SectionManager:
             
         elif SectionManager.option_id == CryptoOption.ETHERUM.value:
             output = SectionManager._get_etherum_course()
-            
+        
+        if output is None:
+            output = '-- Request Error --'.center(24)
+        
         return output
     
     
     @staticmethod
     def _get_bitcoin_course():
-        return 'BITCOIN'
+        return prc.get_BTC_price()
     
     
     @staticmethod
     def _get_etherum_course():
-        return 'ETHERUM'
+        return prc.get_ETH_price()
