@@ -2,6 +2,9 @@
 # -- KeyPad_Client: menu.py --
 
 from enum import Enum
+from time import sleep
+import threading as thr
+
 
 from tcp_client import TCP_Client
 
@@ -29,6 +32,9 @@ class Menu:
     
         self.in_sections = True
         self.in_options = False
+        
+        self.child_Thread = None
+        
         
         
     def next(self):
@@ -97,6 +103,8 @@ class Menu:
             self.in_options = False
             
         else:
+            self.threaded = False # for subprocess
+            
             self.in_sections = False
             self.in_options = True
         
@@ -109,6 +117,8 @@ class Menu:
             self.in_options = True
             
         elif self.in_options:
+            self.threaded = True # for subprocess
+            
             self.in_sections = False
             self.in_options = False
             
@@ -117,7 +127,29 @@ class Menu:
             self.in_options = False
         
         self.update_output()
-        
+    
+    
+    def _thread_task(self):
+        while True:
+            if not self.threaded:
+                break
+            
+            if self.section == MenuSections.CLOCK:
+                output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_output())
+
+            if self.section == MenuSections.NET:
+                output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_output())
+
+            if self.section == MenuSections.COLLEGE_PLAN:
+                output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_output())
+
+            if self.section == MenuSections.CRYPTO:
+                output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_output())
+
+            self.client.send(row=0, text=output[0].center(24))
+            self.client.send(row=1, text=output[1])
+            
+            sleep(1)
     
     
     def update_output(self):
@@ -129,7 +161,10 @@ class Menu:
                 output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_header())
                     
             else:
-                output = (f'-- {clock.SectionManager.HEADER} --', clock.SectionManager.get_option_output())
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.start()
+                return
                 
         if self.section == MenuSections.NET:
             if self.in_sections:
@@ -139,7 +174,10 @@ class Menu:
                 output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_header())
                 
             else:
-                output = (f'-- {net.SectionManager.HEADER} --', net.SectionManager.get_option_output())
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.start()
+                return
             
         if self.section == MenuSections.COLLEGE_PLAN:
             if self.in_sections:
@@ -149,7 +187,10 @@ class Menu:
                 output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_header())
                     
             else:
-                output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_output())
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.start()
+                return
             
         if self.section == MenuSections.CRYPTO:
             if self.in_sections:
@@ -159,14 +200,10 @@ class Menu:
                 output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_header())
                     
             else:
-                output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_output())
-        
-        
-        print('OUTPUT:')
-        print('\t' + 26 * '-')
-        print(f'\t{output[0].center(24)}')
-        print(f'\t{output[1]}')
-        print('\t' + 26 * '-')
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
+                self.child_Thread.name = f'<ChildThread>CLOCK'
+                self.child_Thread.start()
+                return
         
         self.client.send(row=0, text=output[0].center(24))
         self.client.send(row=1, text=output[1])
