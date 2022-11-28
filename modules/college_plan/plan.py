@@ -29,7 +29,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{PlanOptions(SectionManager.option_id).value + 1}:  {PlanOptions(SectionManager.option_id).name}'
+        return f'{PlanOptions(SectionManager.option_id).value + 1}: {PlanOptions(SectionManager.option_id).name}'
     
     
     @staticmethod

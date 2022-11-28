@@ -27,7 +27,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{NetOption(SectionManager.option_id).value + 1}:  {NetOption(SectionManager.option_id).name}'
+        return f'{NetOption(SectionManager.option_id).value + 1}: {NetOption(SectionManager.option_id).name}'
     
     
     @staticmethod
@@ -41,7 +41,7 @@ class SectionManager:
         elif SectionManager.option_id == NetOption.HOSTNAME_IP.value:
             output = f'{SectionManager._get_hostname()} : {SectionManager._get_ip_addr()}'
             
-        return output
+        return output.center(24)
             
     
     @staticmethod

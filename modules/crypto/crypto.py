@@ -25,7 +25,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{CryptoOption(SectionManager.option_id).value + 1}:  {CryptoOption(SectionManager.option_id).name}'
+        return f'{CryptoOption(SectionManager.option_id).value + 1}: {CryptoOption(SectionManager.option_id).name}'
     
     
     @staticmethod

@@ -28,7 +28,7 @@ class SectionManager:
     
     @staticmethod
     def get_option_header():
-        return f'{ClockOption(SectionManager.option_id).value + 1}:  {ClockOption(SectionManager.option_id).name}'
+        return f'{ClockOption(SectionManager.option_id).value + 1}: {ClockOption(SectionManager.option_id).name}'
     
     @staticmethod
     def get_option_output():
@@ -41,7 +41,7 @@ class SectionManager:
         elif SectionManager.option_id == ClockOption.DATETIME.value:
             output = f'{SectionManager._get_current_date()}  |  {SectionManager._get_current_time()}'
             
-        return output
+        return output.center(24)
     
 
 

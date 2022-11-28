@@ -33,6 +33,11 @@ def config_init():
         BUTTON_PREV_PIN = int(config['RPi KeyPad']['pin_button_prev'])
         BUTTON_BACK_PIN = int(config['RPi KeyPad']['pin_button_back'])
         BUTTON_SELECT_PIN = int(config['RPi KeyPad']['pin_button_select'])
+        
+        # RPi LED
+        global PIN_PWMLED
+        
+        PIN_PWMLED = int(config['RPi LED']['pin_pwmled'])
     
     except KeyError as e:
         print('-- Config Error --')
@@ -66,7 +71,7 @@ def main():
     
     # -- KeyPad
     print('Setting up the KeyPad... ', end='')
-    btn_handler = Buttons_Handler(BUTTON_NEXT_PIN, BUTTON_PREV_PIN, BUTTON_BACK_PIN, BUTTON_SELECT_PIN, menu)
+    btn_handler = Buttons_Handler(BUTTON_NEXT_PIN, BUTTON_PREV_PIN, BUTTON_BACK_PIN, BUTTON_SELECT_PIN, PIN_PWMLED, menu)
     print('Done.\n')
     
     

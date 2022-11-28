@@ -52,6 +52,8 @@ class Menu:
                 crypto.SectionManager.next_option()
         
         else:
+            # TODO:
+            #   Suboptions setter for: college_plan
             return
             
         self.update_output()
@@ -78,6 +80,8 @@ class Menu:
                 crypto.SectionManager.prev_option()
                 
         else:
+            # TODO:
+            #   Suboptions setter for: college_plan
             return
         
         self.update_output()
