@@ -18,6 +18,9 @@ class MenuSections(Enum):
     CRYPTO = 3
 
 class Menu:
+    HEADER = '-- MENU --'
+    
+    
     def __init__(self, tcp_client : TCP_Client) -> None:
         self.client = tcp_client
         
@@ -25,6 +28,7 @@ class Menu:
         self.section = MenuSections(self.section_id)
     
         self.in_sections = True
+        self.in_options = False
         
         
     def next(self):
@@ -34,7 +38,7 @@ class Menu:
                 self.section_id = 0
             self.section = MenuSections(self.section_id)
             
-        else:
+        elif self.in_options:
             if self.section == MenuSections.CLOCK:
                 clock.SectionManager.next_option()
             
@@ -46,6 +50,9 @@ class Menu:
                 
             elif self.section == MenuSections.CRYPTO:
                 crypto.SectionManager.next_option()
+        
+        else:
+            return
             
         self.update_output()
             
@@ -57,7 +64,7 @@ class Menu:
                 self.section_id = 3
             self.section = MenuSections(self.section_id)
         
-        else:
+        elif self.in_options:
             if self.section == MenuSections.CLOCK:
                 clock.SectionManager.prev_option()
             
@@ -69,17 +76,42 @@ class Menu:
                 
             elif self.section == MenuSections.CRYPTO:
                 crypto.SectionManager.prev_option()
+                
+        else:
+            return
         
         self.update_output()
         
         
     def back(self):
-        self.in_sections = True
+        if self.in_sections:
+            self.in_sections = True
+            self.in_options = False
+            
+        elif self.in_options:
+            self.in_sections = True
+            self.in_options = False
+            
+        else:
+            self.in_sections = False
+            self.in_options = True
+        
         self.update_output()
     
     
     def select(self):
-        self.in_sections = False
+        if self.in_sections:
+            self.in_sections = False
+            self.in_options = True
+            
+        elif self.in_options:
+            self.in_sections = False
+            self.in_options = False
+            
+        else:
+            self.in_sections = False
+            self.in_options = False
+        
         self.update_output()
         
     
@@ -87,13 +119,19 @@ class Menu:
     def update_output(self):
         if self.section == MenuSections.CLOCK:
             if self.in_sections:
-                output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_header())
+                output = (Menu.HEADER, clock.SectionManager.HEADER)
                 
+            elif self.in_options:
+                output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_header())
+                    
             else:
-                output = (clock.SectionManager.HEADER, clock.SectionManager.get_output())
+                output = (clock.SectionManager.HEADER, clock.SectionManager.get_option_output())
                 
         if self.section == MenuSections.NET:
             if self.in_sections:
+                output = (Menu.HEADER, net.SectionManager.HEADER)
+                
+            elif self.in_options:
                 output = (net.SectionManager.HEADER, net.SectionManager.get_option_header())
                 
             else:
@@ -101,22 +139,30 @@ class Menu:
             
         if self.section == MenuSections.COLLEGE_PLAN:
             if self.in_sections:
-                output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_header())
+                output = (Menu.HEADER, plan.SectionManager.HEADER)
                 
+            elif self.in_options:
+                output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_header())
+                    
             else:
                 output = (plan.SectionManager.HEADER, plan.SectionManager.get_option_output())
             
         if self.section == MenuSections.CRYPTO:
             if self.in_sections:
-                output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_header())
+                output = (Menu.HEADER, crypto.SectionManager.HEADER)
                 
+            elif self.in_options:
+                output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_header())
+                    
             else:
                 output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_output())
             
         
         print('OUTPUT:')
-        print(f'\t{output[0].center(24)}')
-        print(f'\t{output[1].center(24)}\n')
+        print('\t' + 26 * '-')
+        print(f'\t|{output[0].center(24)}|')
+        print(f'\t|{output[1]}|\n')
+        print('\t' + 26 * '-')
         
         self.client.send(row=0, text=output[0].center(24))
-        self.client.send(row=1, text=output[1].center(24))
+        self.client.send(row=1, text=output[1])

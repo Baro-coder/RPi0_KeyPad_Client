@@ -31,7 +31,7 @@ class SectionManager:
         return f'{ClockOption(SectionManager.option_id).value}:  {ClockOption(SectionManager.option_id).name}'
     
     @staticmethod
-    def get_output():
+    def get_option_output():
         if SectionManager.option_id == ClockOption.TIME.value:
             output = SectionManager._get_current_time()
             

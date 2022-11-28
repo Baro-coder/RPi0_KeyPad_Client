@@ -29,25 +29,33 @@ class Buttons_Handler:
     
         
     def _press_next(self):
-        print('Button NEXT')
+        print('Button: NEXT')
+        print(f'\t{self.menu.in_sections = }')
+        print(f'\t{self.menu.in_options = }')
         
         self.menu.next()
     
     
     def _press_prev(self):
-        print('Button PREV')
+        print('Button: PREV')
+        print(f'\t{self.menu.in_sections = }')
+        print(f'\t{self.menu.in_options = }')
         
         self.menu.prev()
     
     
     def _press_back(self):
-        print('Button BACK')
+        print('Button: BACK')
+        print(f'\t{self.menu.in_sections = }')
+        print(f'\t{self.menu.in_options = }')
         
         self.menu.back()
     
     
     def _press_select(self):
-        print('Button SELECT')
+        print('Button: SELECT')
+        print(f'\t{self.menu.in_sections = }')
+        print(f'\t{self.menu.in_options = }')
         
         self.menu.select()
     

@@ -41,7 +41,5 @@ class TCP_Client:
             s.sendall(str(request).encode(self.format))
             resp = s.recv(1024)
             
-            print(f"Response: {resp.decode(self.format)}")
-            
         
     
