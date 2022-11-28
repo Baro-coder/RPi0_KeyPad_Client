@@ -2,6 +2,7 @@
 # -- KeyPad_Client/modules/college_plan: plan.py --
 
 from enum import Enum
+import datetime
 import csv
 
 from modules.college_plan.date import Date
@@ -10,24 +11,26 @@ from modules.college_plan.lesson import Lesson, LessonType
 class PlanOptions(Enum):
     CURRENT_DAY = 0
     NEXT_DAY = 1
-    SPECIFIED_DATE = 2
 
 
 class SectionManager:
     HEADER = 'COLLEGE PLAN'
     option_id = 0
     
+    plan = None
+    block_id = 0
+    
     @staticmethod
     def next_option():
         SectionManager.option_id += 1
-        if SectionManager.option_id == 3:
+        if SectionManager.option_id == 2:
             SectionManager.option_id = 0
             
     @staticmethod
     def prev_option():
         SectionManager.option_id -= 1
         if SectionManager.option_id == -1:
-            SectionManager.option_id = 2
+            SectionManager.option_id = 1
     
     
     @staticmethod
@@ -38,39 +41,61 @@ class SectionManager:
     @staticmethod
     def get_option_output():
         if SectionManager.option_id == PlanOptions.CURRENT_DAY.value:
-            output = SectionManager._get_plan_for_current_day()
+            date, plan = SectionManager._get_plan_for_current_day()
             
         elif SectionManager.option_id == PlanOptions.NEXT_DAY.value:
-            output = SectionManager._get_plan_for_next_day()
-            
-        elif SectionManager.option_id == PlanOptions.SPECIFIED_DATE.value:
-            output = SectionManager._get_plan_for_specified_date()
-            
+            date, plan = SectionManager._get_plan_for_next_day()
+        
+        out1 = f'{SectionManager.HEADER}:{(23 - (len(SectionManager.HEADER) + len(date))) * " "}{date}'
+        out2 = str(plan.lessons[SectionManager.block_id])
+        
+        output = (out1, out2)
+        
         return output
     
+
+    @staticmethod
+    def next_block():
+        SectionManager.block_id += 1
+        if SectionManager.block_id == 7:
+            SectionManager.block_id = 0
+            
+    @staticmethod
+    def prev_block():
+        SectionManager.block_id -= 1
+        if SectionManager.block_id == -1:
+            SectionManager.block_id = 6
     
+
     @staticmethod
     def _get_plan_for_current_day():
-        return 'CURRENT DAY'
-    
+        year, month, day = datetime.datetime.today().strftime("%Y-%m-%d").split('-')
+        
+        date = f'{day}/{month}/{year}'
+        plan = Plan.get_plan_by_date(int(year), int(month), int(day))
+
+        return date, plan
     
     @staticmethod
     def _get_plan_for_next_day():
-        return 'NEXT DAY'
-    
-    @staticmethod
-    def _get_plan_for_specified_date():
-        return 'SPECIFIED DATE'
+        year, month, day = (datetime.datetime.today() + datetime.timedelta(days=1)).strftime("%Y-%m-%d").split('-')
+        
+        date = f'{day}/{month}/{year}'
+        plan = Plan.get_plan_by_date(int(year), int(month), int(day))
+        
+        return date, plan
 
 
 
 # *** Plan ***
 class Plan:
-    FILE_CSV = '/var/college_plan.csv'
-    dates : list = []
+    FILE_CSV = '/home/pi/.Private/RPi0_College_Plan/college_plan.csv'
+    dates = []
             
     @staticmethod
     def get_plan_by_date(year : int, month : int, day : int):
+        Plan._read_data_from_csv_file()
+        
         d = Date(day, month, year)
         
         for date in Plan.dates:

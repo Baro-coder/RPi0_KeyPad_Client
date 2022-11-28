@@ -32,9 +32,9 @@ class Menu:
     
         self.in_sections = True
         self.in_options = False
+        self.in_college_plan = False
         
         self.child_Thread = None
-        
         
         
     def next(self):
@@ -57,10 +57,8 @@ class Menu:
             elif self.section == MenuSections.CRYPTO:
                 crypto.SectionManager.next_option()
         
-        else:
-            # TODO:
-            #   Suboptions setter for: college_plan
-            return
+        elif self.in_college_plan:
+            plan.SectionManager.next_block()
             
         self.update_output()
             
@@ -85,10 +83,8 @@ class Menu:
             elif self.section == MenuSections.CRYPTO:
                 crypto.SectionManager.prev_option()
                 
-        else:
-            # TODO:
-            #   Suboptions setter for: college_plan
-            return
+        elif self.in_college_plan:
+            plan.SectionManager.prev_block()
         
         self.update_output()
         
@@ -103,10 +99,14 @@ class Menu:
             self.in_options = False
             
         else:
-            self.threaded = False # for subprocess
-            
             self.in_sections = False
             self.in_options = True
+            
+            if self.section == MenuSections.COLLEGE_PLAN:
+                self.in_college_plan = False
+            
+            else:
+                self.threaded = False # for subprocess
         
         self.update_output()
     
@@ -117,14 +117,14 @@ class Menu:
             self.in_options = True
             
         elif self.in_options:
-            self.threaded = True # for subprocess
-            
             self.in_sections = False
             self.in_options = False
             
-        else:
-            self.in_sections = False
-            self.in_options = False
+            if self.section == MenuSections.COLLEGE_PLAN:
+                self.in_college_plan = True
+            
+            else:
+                self.threaded = True # for subprocess
         
         self.update_output()
     
@@ -140,9 +140,6 @@ class Menu:
 
             if self.section == MenuSections.NET:
                 output = (f'{net.SectionManager.HEADER}:', net.SectionManager.get_option_output())
-
-            if self.section == MenuSections.COLLEGE_PLAN:
-                output = (f'{plan.SectionManager.HEADER}:', plan.SectionManager.get_option_output())
 
             if self.section == MenuSections.CRYPTO:
                 output = (f'{crypto.SectionManager.HEADER}:', crypto.SectionManager.get_option_output())
@@ -194,13 +191,7 @@ class Menu:
                 output = (f'-- {plan.SectionManager.HEADER} --', plan.SectionManager.get_option_header())
                     
             else:
-                self.child_Thread = thr.Thread(target=self._thread_task, args=(), daemon=True)
-                self.child_Thread.name = f'<ChildThread>PLAN'
-                
-                print(f'{self.child_Thread.name} : START')
-                
-                self.child_Thread.start()
-                return
+                output = plan.SectionManager.get_option_output()
             
         if self.section == MenuSections.CRYPTO:
             if self.in_sections:
