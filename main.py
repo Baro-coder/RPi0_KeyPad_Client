@@ -67,7 +67,7 @@ def main():
     # -- KeyPad
     print('Setting up the KeyPad... ', end='')
     btn_handler = Buttons_Handler(BUTTON_NEXT_PIN, BUTTON_PREV_PIN, BUTTON_BACK_PIN, BUTTON_SELECT_PIN, menu)
-    print('Done.')
+    print('Done.\n')
     
     
     try:
