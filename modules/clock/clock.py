@@ -39,7 +39,7 @@ class SectionManager:
             output = SectionManager._get_current_date()
             
         elif SectionManager.option_id == ClockOption.DATETIME.value:
-            output = f'{SectionManager._get_current_date()}  |  {SectionManager._get_current_time()}'
+            output = f'{SectionManager._get_current_date()}      {SectionManager._get_current_time()}'
             
         return output.center(24)
     

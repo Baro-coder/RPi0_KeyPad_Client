@@ -2,6 +2,7 @@
 # -- KeyPad_Client: main.py --
 
 import sys
+import os
 import configparser as cfgp
 
 from tcp_client import TCP_Client
@@ -9,7 +10,9 @@ from menu import Menu
 from buttons_handler import Buttons_Handler
 
 
-CONFIG_FILE = './config.ini'
+APP_DIR = '/home/pi/.Private/RPi0_KeyPad_Client'
+CONFIG_FILE = f'{APP_DIR}/config.ini'
+PID_FILE = '/var/keypad_client.pid'
 
 
 def config_init():
@@ -50,30 +53,37 @@ def config_init():
         sys.exit(1)
 
 
+def store_pid():
+    pid = os.getpid()
+    with open(PID_FILE, 'w') as f:
+        f.write(str(pid))
+
+
 def main():
+    # -- PID
+    print('Storing the PID... ', end='')
+    store_pid()
+    print('Done.\n')
+    
     # -- Config
     print('Reading config... ', end='')
     config_init()
     print('Done.')
-    
     
     # -- TCP Client
     print('Setting up the TCP Client... ', end='')
     client = TCP_Client(HOST, PORT, BUFFER_SIZE, FORMAT)
     print('Done.')
     
-    
     # -- Menu
     print('Setting up the Menu manager... ', end='')
     menu = Menu(client)
     print('Done.')
     
-    
     # -- KeyPad
     print('Setting up the KeyPad... ', end='')
     btn_handler = Buttons_Handler(BUTTON_NEXT_PIN, BUTTON_PREV_PIN, BUTTON_BACK_PIN, BUTTON_SELECT_PIN, PIN_PWMLED, menu)
     print('Done.\n')
-    
     
     try:
         btn_handler.run()
