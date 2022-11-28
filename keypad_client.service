@@ -6,8 +6,8 @@ StartLimitIntervalSec=0
 [Service]
 ExecStart=/bin/bash /home/pi/.Private/keypad_client.sh
 WorkingDirectory=/home/pi/.Private
-StandardOutput=/var/log/keypad_client.log
-StandardError=/var/log/keypad_client.err
+StandardOutput=append:/var/log/keypad_client.log
+StandardError=append:/var/log/keypad_client.log
 Restart=always
 RestartSec=1
 User=pi
