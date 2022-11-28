@@ -30,10 +30,10 @@ class SectionManager:
     
     @staticmethod
     def get_option_output():
-        if SectionManager.option_id == CryptoOption.BITCOIN:
+        if SectionManager.option_id == CryptoOption.BITCOIN.value:
             output = SectionManager._get_bitcoin_course()
             
-        elif SectionManager.option_id == CryptoOption.ETHERUM:
+        elif SectionManager.option_id == CryptoOption.ETHERUM.value:
             output = SectionManager._get_etherum_course()
             
         return output

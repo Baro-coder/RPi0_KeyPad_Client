@@ -21,16 +21,18 @@ class Menu:
     def __init__(self, tcp_client : TCP_Client) -> None:
         self.client = tcp_client
         
-        self.section = MenuSections.CLOCK
+        self.section_id = 0
+        self.section = MenuSections(self.section_id)
     
         self.in_sections = True
         
         
     def next(self):
         if self.in_sections:
-            self.section += 1
-            if self.section == 4:
-                self.section = 0
+            self.section_id += 1
+            if self.section_id == 4:
+                self.section_id = 0
+            self.section = MenuSections(self.section_id)
             
         else:
             if self.section == MenuSections.CLOCK:
@@ -50,9 +52,10 @@ class Menu:
             
     def prev(self):
         if self.in_sections:
-            self.section -= 1
-            if self.section == -1:
-                self.section = 3
+            self.section_id -= 1
+            if self.section_id == -1:
+                self.section_id = 3
+            self.section = MenuSections(self.section_id)
         
         else:
             if self.section == MenuSections.CLOCK:

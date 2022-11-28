@@ -34,13 +34,13 @@ class SectionManager:
     
     @staticmethod
     def get_option_output():
-        if SectionManager.option_id == PlanOptions.CURRENT_DAY:
+        if SectionManager.option_id == PlanOptions.CURRENT_DAY.value:
             output = SectionManager._get_plan_for_current_day()
             
-        elif SectionManager.option_id == PlanOptions.NEXT_DAY:
+        elif SectionManager.option_id == PlanOptions.NEXT_DAY.value:
             output = SectionManager._get_plan_for_next_day()
             
-        elif SectionManager.option_id == PlanOptions.SPECIFIED_DATE:
+        elif SectionManager.option_id == PlanOptions.SPECIFIED_DATE.value:
             output = SectionManager._get_plan_for_specified_date()
             
         return output

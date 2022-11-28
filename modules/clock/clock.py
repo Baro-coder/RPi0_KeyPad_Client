@@ -32,13 +32,13 @@ class SectionManager:
     
     @staticmethod
     def get_output():
-        if SectionManager.option_id == ClockOption.TIME:
+        if SectionManager.option_id == ClockOption.TIME.value:
             output = SectionManager._get_current_time()
             
-        elif SectionManager.option_id == ClockOption.DATE:
+        elif SectionManager.option_id == ClockOption.DATE.value:
             output = SectionManager._get_current_date()
             
-        elif SectionManager.option_id == ClockOption.DATETIME:
+        elif SectionManager.option_id == ClockOption.DATETIME.value:
             output = f'{SectionManager._get_current_date()}  |  {SectionManager._get_current_time()}'
             
         return output

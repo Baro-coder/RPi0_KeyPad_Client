@@ -23,6 +23,8 @@ class Buttons_Handler:
         self.btn_back.when_pressed = self._press_back
         self.btn_select.when_pressed = self._press_select
         
+        self.menu.update_output()
+        
     # ----------------------------------------------------------
     
         

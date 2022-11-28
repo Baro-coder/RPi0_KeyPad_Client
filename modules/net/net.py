@@ -32,13 +32,13 @@ class SectionManager:
     
     @staticmethod
     def get_option_output():
-        if SectionManager.option_id == NetOption.HOSTNAME:
+        if SectionManager.option_id == NetOption.HOSTNAME.value:
             output = SectionManager._get_hostname()
             
-        elif SectionManager.option_id == NetOption.IP:
+        elif SectionManager.option_id == NetOption.IP.value:
             output = SectionManager._get_ip_addr()
             
-        elif SectionManager.option_id == NetOption.HOSTNAME_IP:
+        elif SectionManager.option_id == NetOption.HOSTNAME_IP.value:
             output = f'{SectionManager._get_hostname()} : {SectionManager._get_ip_addr()}'
             
         return output
