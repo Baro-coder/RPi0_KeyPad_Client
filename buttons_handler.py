@@ -24,18 +24,26 @@ class Buttons_Handler:
     
         
     def _press_next(self):
+        print('Button NEXT')
+        
         self.menu.next()
     
     
     def _press_prev(self):
+        print('Button PREV')
+        
         self.menu.prev()
     
     
     def _press_back(self):
+        print('Button BACK')
+        
         self.menu.back()
     
     
     def _press_select(self):
+        print('Button SELECT')
+        
         self.menu.select()
     
     

@@ -1,4 +1,4 @@
-from lesson import Lesson, LessonType
+from modules.college_plan.lesson import Lesson, LessonType
 
 # *** Date ***
 class Date:

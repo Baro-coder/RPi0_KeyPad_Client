@@ -110,6 +110,10 @@ class Menu:
             else:
                 output = (crypto.SectionManager.HEADER, crypto.SectionManager.get_option_output())
             
-            
+        
+        print('OUTPUT:')
+        print(f'\t{output[0].center(24)}')
+        print(f'\t{output[1].center(24)}\n')
+        
         self.client.send(row=0, text=output[0].center(24))
         self.client.send(row=1, text=output[1].center(24))

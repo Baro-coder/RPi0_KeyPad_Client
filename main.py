@@ -77,7 +77,7 @@ def main():
         print('-- Manually Interrupt --')
     
     except Exception as e:
-        print('-- Unexpected Error Server --')
+        print('-- Unexpected Error --')
         print(type(e))
         print(e)
         sys.exit(1)

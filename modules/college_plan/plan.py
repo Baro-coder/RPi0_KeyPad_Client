@@ -1,8 +1,8 @@
 from enum import Enum
 import csv
 
-from date import Date
-from lesson import Lesson, LessonType
+from modules.college_plan.date import Date
+from modules.college_plan.lesson import Lesson, LessonType
 
 class PlanOptions(Enum):
     CURRENT_DAY = 0
