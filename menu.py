@@ -148,6 +148,8 @@ class Menu:
             self.client.send(row=1, text=output[1])
             
             sleep(interval)
+            
+        self.update_output()
     
     
     def update_output(self):
@@ -201,7 +203,10 @@ class Menu:
                 output = (f'-- {crypto.SectionManager.HEADER} --', crypto.SectionManager.get_option_header())
                     
             else:
-                self.child_Thread = thr.Thread(target=self._thread_task, args=(10, ), daemon=True)
+                self.client.send(row=1, text='LOADING DATA...'.center(24))
+                sleep(1)
+                
+                self.child_Thread = thr.Thread(target=self._thread_task, args=(5, ), daemon=True)
                 self.child_Thread.name = f'<ChildThread>CRYPTO'
                 
                 print(f'{self.child_Thread.name} : START')

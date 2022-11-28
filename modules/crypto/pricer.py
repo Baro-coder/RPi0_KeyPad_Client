@@ -36,6 +36,11 @@ def get_BTC_price():
     
     price = str(sections[1].get_text())
     
+    price = price.replace(' ', '')[:-3]
+    price = price.replace(',', '.')
+    price = float(price)
+    price = round(price, 2)
+    
     out = f'BTC: {price} {CURRENCY}'
     
     return out
@@ -54,6 +59,11 @@ def get_ETH_price():
     sections = soup.find_all('small')
     
     price = str(sections[1].get_text())
+    
+    price = price.replace(' ', '')[:-3]
+    price = price.replace(',', '.')
+    price = float(price)
+    price = round(price, 2)
     
     out = f'ETH: {price} {CURRENCY}'
     
